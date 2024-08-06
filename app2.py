@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import qrcode
+from qrcode.image.styledpil import StyledPilImage
 from io import BytesIO
 import base64
 import datetime
@@ -155,7 +156,7 @@ def generate_qr_code(url):
     qr = qrcode.QRCode(version=1, box_size=10, border=5)
     qr.add_data(url)
     qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white")
+    img = qrcode.make(url, image_factory=StyledPilImage)
     buffered = BytesIO()
     img.save(buffered, format="PNG")
     return base64.b64encode(buffered.getvalue()).decode()
