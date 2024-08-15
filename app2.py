@@ -309,7 +309,7 @@ def display_virtual_try_on():
     
     for product in products:
         if st.button(f"Try on {product['name']}", key=f"try_on_{product['id']}"):
-            st.markdown(f'<script>window.open("{product["virtual_try_on_url"]}", "_blank");</script>', unsafe_allow_html=True)
+            st.markdown(f'<script>window.open("{product["https://1f439c8c717eb1d31e.gradio.live/l"]}", "_blank");</script>', unsafe_allow_html=True)
             st.info(f"Virtual Try On for {product['name']} opened in a new tab.")
 
 if __name__ == "__main__":
