@@ -163,15 +163,10 @@ def generate_qr_code(url):
     buffered = BytesIO()
     img.save(buffered, format="PNG")
     return base64.b64encode(buffered.getvalue()).decode()
-
 def main():
     st.title("ShopEase")
     initialize_session_state()
     navbar()
-
-    # Check if the navbar has been clicked
-    if st.session_state.get('widget_clicked'):
-        st.session_state.current_page = st.session_state.widget_clicked
 
     # Sidebar for search and filter
     with st.sidebar:
@@ -194,9 +189,8 @@ def main():
             st.session_state.cart = {}
         
         # Add Virtual Try On button to sidebar
-        if st.button("Virtual Try On"):
-            st.session_state.current_page = 'VirtualTryOn'
-            st.experimental_rerun()
+        virtual_try_on_url = "https://1f439c8c717eb1d31e.gradio.live/"
+        st.markdown(f'<a href="{virtual_try_on_url}" target="_blank"><button style="width:100%;">Virtual Try On</button></a>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -213,8 +207,6 @@ def main():
     elif st.session_state.current_page.startswith('Product_Feedback_'):
         product_id = int(st.session_state.current_page.split('_')[-1])
         display_product_feedback(product_id)
-    elif st.session_state.current_page == 'VirtualTryOn':
-        display_virtual_try_on()
 
 def display_products(products):
     st.markdown('<div class="main-content">', unsafe_allow_html=True)
@@ -233,11 +225,6 @@ def display_products(products):
                     if st.button("Add to Cart", key=f"add_{product['id']}", help=f"Add {product['name']} to your cart"):
                         add_to_cart(product['id'])
                         st.success(f"{product['name']} added to cart!")
-                    
-                    # Add Virtual Try On button
-                    if st.button("Virtual Try On", key=f"try_on_{product['id']}"):
-                        st.markdown(f'<script>window.open("{product["virtual_try_on_url"]}", "_blank");</script>', unsafe_allow_html=True)
-                        st.info(f"Virtual Try On for {product['name']} opened in a new tab.")
                     
                     # Generate QR code for product feedback
                     feedback_url = f"Product_Feedback_{product['id']}"
@@ -303,14 +290,7 @@ def display_product_feedback(product_id):
         else:
             st.warning("Please enter your name and feedback before submitting.")
 
-def display_virtual_try_on():
-    st.header("Virtual Try On")
-    st.write("Select a product to try on virtually:")
-    
-    for product in products:
-        if st.button(f"Try on {product['name']}", key=f"try_on_{product['id']}"):
-            st.markdown(f'<script>window.open("{product["https://1f439c8c717eb1d31e.gradio.live/l"]}", "_blank");</script>', unsafe_allow_html=True)
-            st.info(f"Virtual Try On for {product['name']} opened in a new tab.")
+
 
 if __name__ == "__main__":
     main()
