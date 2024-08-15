@@ -84,16 +84,16 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Sample product data with real image URLs
+# Sample product data with real image URLs and virtual try-on links
 products = [
-    {"id": 1, "name": "Smartphone", "category": "Electronics", "price": 499.99, "rating": 4.5, "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"},
-    {"id": 2, "name": "Laptop", "category": "Electronics", "price": 999.99, "rating": 4.7, "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"},
-    {"id": 3, "name": "Headphones", "category": "Electronics", "price": 99.99, "rating": 4.3, "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"},
-    {"id": 4, "name": "T-shirt", "category": "Clothing", "price": 19.99, "rating": 4.0, "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"},
-    {"id": 5, "name": "Jeans", "category": "Clothing", "price": 49.99, "rating": 4.2, "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"},
-    {"id": 6, "name": "Sneakers", "category": "Footwear", "price": 79.99, "rating": 4.4, "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"},
-    {"id": 7, "name": "Watch", "category": "Accessories", "price": 149.99, "rating": 4.6, "image": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"},
-    {"id": 8, "name": "Backpack", "category": "Accessories", "price": 39.99, "rating": 4.1, "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"},
+    {"id": 1, "name": "Smartphone", "category": "Electronics", "price": 499.99, "rating": 4.5, "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", "virtual_try_on_url": "https://www.example.com/virtual-try-on/smartphone"},
+    {"id": 2, "name": "Laptop", "category": "Electronics", "price": 999.99, "rating": 4.7, "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", "virtual_try_on_url": "https://www.example.com/virtual-try-on/laptop"},
+    {"id": 3, "name": "Headphones", "category": "Electronics", "price": 99.99, "rating": 4.3, "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", "virtual_try_on_url": "https://www.example.com/virtual-try-on/headphones"},
+    {"id": 4, "name": "T-shirt", "category": "Clothing", "price": 19.99, "rating": 4.0, "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", "virtual_try_on_url": "https://www.example.com/virtual-try-on/tshirt"},
+    {"id": 5, "name": "Jeans", "category": "Clothing", "price": 49.99, "rating": 4.2, "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", "virtual_try_on_url": "https://www.example.com/virtual-try-on/jeans"},
+    {"id": 6, "name": "Sneakers", "category": "Footwear", "price": 79.99, "rating": 4.4, "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", "virtual_try_on_url": "https://www.example.com/virtual-try-on/sneakers"},
+    {"id": 7, "name": "Watch", "category": "Accessories", "price": 149.99, "rating": 4.6, "image": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", "virtual_try_on_url": "https://www.example.com/virtual-try-on/watch"},
+    {"id": 8, "name": "Backpack", "category": "Accessories", "price": 39.99, "rating": 4.1, "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", "virtual_try_on_url": "https://www.example.com/virtual-try-on/backpack"},
 ]
 
 # Sample feedback data
@@ -142,6 +142,10 @@ def navbar():
             <i class="fas fa-comment"></i>
             <span>Feedback</span>
         </a>
+        <a href="#" class="nav-item" onclick="handleNavClick('VirtualTryOn')">
+            <i class="fas fa-magic"></i>
+            <span>Virtual Try On</span>
+        </a>
     </div>
     <script>
     function handleNavClick(page) {
@@ -151,7 +155,6 @@ def navbar():
     </script>
     """, unsafe_allow_html=True)
 
-
 def generate_qr_code(url):
     qr = qrcode.QRCode(version=1, box_size=10, border=5)
     qr.add_data(url)
@@ -160,7 +163,6 @@ def generate_qr_code(url):
     buffered = BytesIO()
     img.save(buffered, format="PNG")
     return base64.b64encode(buffered.getvalue()).decode()
-    
 
 def main():
     st.title("ShopEase")
@@ -190,6 +192,12 @@ def main():
         if st.button("Checkout"):
             st.success("Thank you for your purchase!")
             st.session_state.cart = {}
+        
+        # Add Virtual Try On button to sidebar
+        if st.button("Virtual Try On"):
+            st.session_state.current_page = 'VirtualTryOn'
+            st.experimental_rerun()
+        
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Display content based on current page
@@ -205,6 +213,8 @@ def main():
     elif st.session_state.current_page.startswith('Product_Feedback_'):
         product_id = int(st.session_state.current_page.split('_')[-1])
         display_product_feedback(product_id)
+    elif st.session_state.current_page == 'VirtualTryOn':
+        display_virtual_try_on()
 
 def display_products(products):
     st.markdown('<div class="main-content">', unsafe_allow_html=True)
@@ -223,6 +233,11 @@ def display_products(products):
                     if st.button("Add to Cart", key=f"add_{product['id']}", help=f"Add {product['name']} to your cart"):
                         add_to_cart(product['id'])
                         st.success(f"{product['name']} added to cart!")
+                    
+                    # Add Virtual Try On button
+                    if st.button("Virtual Try On", key=f"try_on_{product['id']}"):
+                        st.markdown(f'<script>window.open("{product["virtual_try_on_url"]}", "_blank");</script>', unsafe_allow_html=True)
+                        st.info(f"Virtual Try On for {product['name']} opened in a new tab.")
                     
                     # Generate QR code for product feedback
                     feedback_url = f"Product_Feedback_{product['id']}"
@@ -288,5 +303,14 @@ def display_product_feedback(product_id):
         else:
             st.warning("Please enter your name and feedback before submitting.")
 
+def display_virtual_try_on():
+    st.header("Virtual Try On")
+    st.write("Select a product to try on virtually:")
+    
+    for product in products:
+        if st.button(f"Try on {product['name']}", key=f"try_on_{product['id']}"):
+            st.markdown(f'<script>window.open("{product["virtual_try_on_url"]}", "_blank");</script>', unsafe_allow_html=True)
+            st.info(f"Virtual Try On for {product['name']} opened in a new tab.")
+
 if __name__ == "__main__":
-    main()    
+    main()
