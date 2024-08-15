@@ -189,7 +189,7 @@ def main():
             st.session_state.cart = {}
         
         # Add Virtual Try On button to sidebar
-        virtual_try_on_url = "https://1f439c8c717eb1d31e.gradio.live/"
+        virtual_try_on_url = "https://c703f85949399f984f.gradio.live"
         st.markdown(f'<a href="{virtual_try_on_url}" target="_blank"><button style="width:100%;">Virtual Try On</button></a>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
